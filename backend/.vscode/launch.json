@@ -2,6 +2,17 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Spring Boot-RestaurantsServiceApplication<restaurants_service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.restaurants_service.restaurants_service.RestaurantsServiceApplication",
+            "projectName": "restaurants_service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=49680 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=restaurants_service"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-FooddeliveryApplication<fooddelivery>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
