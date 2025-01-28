@@ -15,7 +15,7 @@ const SellerHomeScreen = () => {
   return (
     <div>
        <h1>Welcome Seller {user.name || "User"}!</h1>
-      <p>Your ID: {user.id}</p>
+      {/* <p>Your ID: {user.id}</p> */}
       {/* Tabs for navigation */}
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <Link

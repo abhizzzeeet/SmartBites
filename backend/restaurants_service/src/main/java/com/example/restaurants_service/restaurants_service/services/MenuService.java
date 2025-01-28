@@ -30,9 +30,9 @@ public class MenuService {
 
     public List<Menu> getMenuByRestaurantId(Long restaurantId) {
         List<Menu> menus =  menuRepository.findByRestaurantId(restaurantId);
-        if (menus.isEmpty()) {
-            throw new RuntimeException("Menu not found with restaurant Id: " + restaurantId);
-        }
+        // if (menus.isEmpty()) {
+        //     throw new RuntimeException("Menu not found with restaurant Id: " + restaurantId);
+        // }
         return menus;
     }
 

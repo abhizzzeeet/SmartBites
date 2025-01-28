@@ -49,6 +49,7 @@ class SellerController {
     
     async fetchMenuByRestaurantId(restaurantId) {
         const response = await axios.get(`http://localhost:8081/api/menus/getMenusByRestaurantId/${restaurantId}`);
+        console.log(`Response for fetchMenuByRestaurantId: `, response);
         return response.data;
     }
     

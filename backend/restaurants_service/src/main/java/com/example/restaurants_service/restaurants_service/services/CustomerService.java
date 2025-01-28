@@ -40,7 +40,7 @@ public class CustomerService {
                 double distance = calculateDistance(latitude, longitude, restaurant.getLatitude(), restaurant.getLongitude());
 
                 // If distance is within 5 km, add to results
-                if (distance <= 5.0) {
+                if (distance <= 100.0) {
                     results.add(restaurant);
                 }
             }

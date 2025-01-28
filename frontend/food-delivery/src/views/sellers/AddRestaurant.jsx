@@ -3,8 +3,7 @@ import Restaurant from "../../models/Restaurant";
 import { useUserContext } from "../../contexts/UserProvider";
 
 const AddRestaurant = () => {
-    const { getUser } = useUserContext();
-    const user = getUser();
+    const { user } = useUserContext();
     const [formData, setFormData] = useState({
         restaurantName: "",
         address: "",
@@ -37,6 +36,7 @@ const AddRestaurant = () => {
 
         // Create a Restaurant instance
         const newRestaurant = new Restaurant(
+            null,
             formData.restaurantName,
             formData.address,
             formData.city,
