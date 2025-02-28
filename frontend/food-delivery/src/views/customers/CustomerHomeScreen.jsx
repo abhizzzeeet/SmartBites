@@ -42,7 +42,8 @@ const CustomerHomeScreen = () => {
     <div>
       <h1>Welcome Customer {user?.name || "User"}!</h1>
       <p>Your ID: {userId}</p>
-
+      <button onClick={()=> navigate(`/customerHomeScreen/cart`)}>Cart</button>
+      <button onClick={()=> navigate(`/customerHomeScreen/orders`)}>Orders</button>
       <div style={{ marginTop: "20px" }}>
         <input
           type="text"

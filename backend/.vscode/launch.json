@@ -20,6 +20,27 @@
             "projectName": "fooddelivery",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FooddeliveryApplication<users_service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.fooddelivery.fooddelivery.FooddeliveryApplication",
+            "projectName": "users_service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=59440 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=users_service"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrdersServiceApplication<orders_service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.orders_service.orders_service.OrdersServiceApplication",
+            "projectName": "orders_service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

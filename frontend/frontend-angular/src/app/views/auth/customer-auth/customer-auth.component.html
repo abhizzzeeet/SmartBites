@@ -1,0 +1,9 @@
+<div>
+    <h1>Customer Authentication</h1>
+    <app-login *ngIf="isLogin" userType="CUSTOMER"></app-login>
+    <app-sign-up *ngIf="!isLogin" userType="CUSTOMER"></app-sign-up>
+    <button (click)="toggleAuthMode()">
+      {{ isLogin ? 'Switch to Signup' : 'Switch to Login' }}
+    </button>
+  </div>
+  

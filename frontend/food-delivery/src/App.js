@@ -11,6 +11,8 @@ import SellerOrders from './views/sellers/SellerOrders';
 import { UserProvider } from './contexts/UserProvider';
 import AddRestaurant from './views/sellers/AddRestaurant';
 import RestaurantMenu from './views/customers/RestaurantMenu';
+import CustomerCart from './views/customers/CustomerCart';
+import CustomerOrders from './views/customers/CustomerOrders';
 
 function App() {
   return (
@@ -26,8 +28,9 @@ function App() {
             <Route path="orders" element={<SellerOrders />} />
           </Route>
           <Route path="/customerHomeScreen/:userId" element={<CustomerHomeScreen />}>
-  
           </Route>
+          <Route path="customerHomeScreen/cart" element={<CustomerCart />}></Route>
+          <Route path="customerHomeScreen/orders" element={<CustomerOrders />}></Route>
           <Route path="/restaurantMenu" element={<RestaurantMenu />} />        
           <Route path="/deliveryAgentHomeScreen/:userId" element={<DeliveryAgentHomeScreen />} />
         </Routes>

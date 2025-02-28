@@ -9,10 +9,10 @@
 		<version>3.4.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example.fooddelivery</groupId>
-	<artifactId>fooddelivery</artifactId>
+	<groupId>com.example.users_service</groupId>
+	<artifactId>users_service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>fooddelivery</name>
+	<name>users_service</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>

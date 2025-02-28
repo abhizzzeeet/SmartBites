@@ -21,6 +21,9 @@
         private Long restaurantId;
 
         @Column(nullable = false)
+        private String restaurantName; 
+
+        @Column(nullable = false)
         private String itemName;
 
         @Column(nullable = false)

@@ -54,7 +54,8 @@ const SellerMenu = () => {
     try {
       const updatedMenuItem = {
         ...newMenuItem,
-        restaurantId: selectedRestaurant.restaurantId, // Assign restaurantId to the new menu item
+        restaurantId: selectedRestaurant.restaurantId, 
+        restaurantName: selectedRestaurant.restaurantName, 
       };
       await SellerController.addMenuItem(updatedMenuItem);
       setMenuItems([...menuItems, updatedMenuItem]); // Update menu items list

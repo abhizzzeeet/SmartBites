@@ -1,0 +1,23 @@
+<div>
+    <h1>Welcome Customer {{ user?.name || 'User' }}!</h1>
+    <p>Your ID: {{ userId }}</p>
+  
+    <div style="margin-top: 20px;">
+      <input
+        type="text"
+        [(ngModel)]="query"
+        (keydown)="handleSearch($event)"
+        placeholder="Enter your query and press Enter"
+        style="padding: 10px; font-size: 16px; width: 300px; margin-right: 10px;"
+      />
+    </div>
+  
+    <p *ngIf="error" style="color: red;">{{ error }}</p>
+  
+    <ul *ngIf="results.length > 0" style="margin-top: 20px;">
+      <li *ngFor="let item of results" (click)="handleRestaurantClick(item)">
+        {{ item.restaurantName }}
+      </li>
+    </ul>
+  </div>
+  
