@@ -32,11 +32,11 @@
         @Column(nullable = false)
         private String quantityType; // e.g., "portion", "size", "piece"
 
-        @ElementCollection
-        @CollectionTable(name = "menu_quantity_prices", joinColumns = @JoinColumn(name = "item_id"))
-        @MapKeyColumn(name = "quantity_option")
-        @Column(name = "price")
-        private Map<String, Double> quantityPrices; // {"half": 100.0, "full": 180.0, "quarter": 60.0}
+        // @ElementCollection
+        // @CollectionTable(name = "menu_quantity_prices", joinColumns = @JoinColumn(name = "item_id"))
+        // @MapKeyColumn(name = "quantity_option")
+        // @Column(name = "price")
+        // private Map<String, Double> quantityPrices; // {"half": 100.0, "full": 180.0, "quarter": 60.0}
 
         @Column
         private String description;

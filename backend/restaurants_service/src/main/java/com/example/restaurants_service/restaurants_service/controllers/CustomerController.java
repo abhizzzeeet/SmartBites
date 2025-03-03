@@ -20,7 +20,7 @@ import com.example.restaurants_service.restaurants_service.services.MenuService;
 
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CustomerController {
 
     @Autowired

@@ -56,6 +56,12 @@
 			<version>1.18.30</version> <!-- Check for the latest version -->
 			<scope>provided</scope>
 		</dependency>
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+
 
 	</dependencies>
 
