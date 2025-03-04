@@ -1,7 +1,8 @@
 # SmartBites
 
 
-https://github.com/user-attachments/assets/236f99de-c28d-4c94-af51-676e8f7d86a3
+https://github.com/user-attachments/assets/cc38ba76-ab0f-4d88-a9d8-5f2023eef527
+
 
 
 ## Introduction
