@@ -2,6 +2,8 @@ package com.example.orders_service.orders_service.controllers;
 
 import com.example.orders_service.orders_service.models.Order;
 import com.example.orders_service.orders_service.services.OrderService;
+import com.example.orders_service.orders_service.services.kafka.KafkaProducerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +18,16 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private KafkaProducerService kafkaProducerService;
+
     // Add an order (POST)
     @PostMapping("/add")
     public ResponseEntity<Order> addOrder(@RequestBody Order order) {
-        Order newOrder = orderService.addOrder(order);
-        return ResponseEntity.ok(newOrder);
+        kafkaProducerService.sendOrder(order);
+        return ResponseEntity.ok(order);
+        // Order newOrder = orderService.addOrder(order);
+        // return ResponseEntity.ok(newOrder);
     }
 
     // Delete an order (DELETE)

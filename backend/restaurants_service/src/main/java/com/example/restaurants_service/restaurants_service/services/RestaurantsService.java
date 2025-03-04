@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 import com.example.restaurants_service.restaurants_service.models.Menu;
 import com.example.restaurants_service.restaurants_service.models.Restaurant;
 import com.example.restaurants_service.restaurants_service.repositories.RestaurantsRepository;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -17,8 +20,8 @@ public class RestaurantsService {
     @Autowired
     private RestaurantsRepository restaurantsRepository;
 
-    @Autowired 
-    private RedisTemplate<String, Object> redisTemplate; 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
 
     public Restaurant saveRestaurant(Restaurant restaurant) {
         return restaurantsRepository.save(restaurant);
@@ -27,12 +30,13 @@ public class RestaurantsService {
     public List<Restaurant> getAllRestaurants() {
         try {
             String cacheKey = "allRestaurants";
-
-            List<Restaurant> restaurants = (List<Restaurant>) redisTemplate.opsForValue().get(cacheKey);
-            if (restaurants == null) {
+            List<Restaurant> restaurants;
+            // List<Restaurant> restaurants = (List<Restaurant>)redisTemplate.opsForValue().get(cacheKey);
+            Object cachedData = redisTemplate.opsForValue().get(cacheKey);
+            if (cachedData == null) {
                 System.out.println("Fetching all restaurants from db");
                 restaurants = restaurantsRepository.findAll();
-                System.out.println("Fetched restaurants from db: "+ restaurants);
+                System.out.println("Fetched restaurants from db: " + restaurants);
                 // if (menus.isEmpty()) {
                 // throw new RuntimeException("Menu not found with restaurant Id: " +
                 // restaurantId);
@@ -40,7 +44,13 @@ public class RestaurantsService {
                 // Store the result in Redis cache for 10 minutes
                 redisTemplate.opsForValue().set(cacheKey, restaurants, 10, TimeUnit.MINUTES);
             } else {
-                System.out.println("Fetched restaurants from cache: "+ restaurants);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.registerModule(new JavaTimeModule()); // To support LocalDateTime
+
+                restaurants = objectMapper.convertValue(cachedData,
+                        new TypeReference<List<Restaurant>>() {
+                        });
+                System.out.println("Fetched restaurants from cache: " + restaurants);
                 System.out.println("Fetching all restaurants from cache");
             }
 
@@ -49,7 +59,7 @@ public class RestaurantsService {
             System.out.println("Error in fetching all restaurants: " + e);
             throw e;
         }
-        
+
     }
 
     public List<Restaurant> getRestaurantsByUserId(Long userId) {
