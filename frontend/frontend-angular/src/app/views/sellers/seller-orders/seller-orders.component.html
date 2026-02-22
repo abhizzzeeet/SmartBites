@@ -1,0 +1,43 @@
+<div>
+  <h2>Seller Orders</h2>
+  <p>See all the orders of your restaurants here.</p>
+
+  <div>
+    <select (change)="handleSelectRestaurant($event)" [value]="selectedRestaurant?.restaurantId?.toString() || ''">
+      <option value="" disabled>Select a restaurant</option>
+      @for (restaurant of restaurants; track restaurant.restaurantId) {
+        <option [value]="restaurant.restaurantId?.toString()">{{ restaurant.restaurantName }}</option>
+      }
+    </select>
+  </div>
+
+  @if (selectedRestaurant) {
+    <div>
+      <h3>Orders for {{ selectedRestaurant.restaurantName }}</h3>
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>User Name</th>
+            <th>Quantity</th>
+            <th>Date & Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (orders.length > 0) {
+            @for (order of orders; track $index) {
+              <tr>
+                <td>{{ order.itemName }}</td>
+                <td>{{ order.userName }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.createdAt }}</td>
+              </tr>
+            }
+          } @else {
+            <tr><td colspan="4">No orders found</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

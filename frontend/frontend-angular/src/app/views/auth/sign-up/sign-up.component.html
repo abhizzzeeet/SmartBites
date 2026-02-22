@@ -1,0 +1,20 @@
+<form (ngSubmit)="handleSubmit()">
+  <h2>{{ userType }} Signup</h2>
+  <div>
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Enter your name" [(ngModel)]="formData.name" required />
+  </div>
+  <div>
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Enter your email" [(ngModel)]="formData.email" required />
+  </div>
+  <div>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter your password" [(ngModel)]="formData.password" required />
+  </div>
+  <div>
+    <label>Phone</label>
+    <input type="tel" name="phone" placeholder="Enter your phone number" [(ngModel)]="formData.phone" />
+  </div>
+  <button type="submit">Sign Up</button>
+</form>

@@ -3,11 +3,11 @@ import { LoginComponent } from '../login/login.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
-  selector: 'app-customer-auth',
+  selector: 'app-seller-auth',
   imports: [LoginComponent, SignUpComponent],
-  templateUrl: './customer-auth.component.html'
+  templateUrl: './seller-auth.component.html'
 })
-export class CustomerAuthComponent {
+export class SellerAuthComponent {
   isLogin: boolean = true;
 
   toggleAuthMode(): void {

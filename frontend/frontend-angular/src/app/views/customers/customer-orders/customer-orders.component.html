@@ -1,0 +1,33 @@
+<div>
+  @if (loading) {
+    <p>Loading orders...</p>
+  } @else if (error) {
+    <p>{{ error }}</p>
+  } @else {
+    <h1>Orders</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Item Name</th>
+          <th>Restaurant</th>
+          <th>Quantity</th>
+          <th>Date & Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (orders.length > 0) {
+          @for (order of orders; track $index) {
+            <tr>
+              <td>{{ order.itemName }}</td>
+              <td>{{ order.restaurantName }}</td>
+              <td>{{ order.quantity }}</td>
+              <td>{{ order.createdAt }}</td>
+            </tr>
+          }
+        } @else {
+          <tr><td colspan="4">No orders found</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

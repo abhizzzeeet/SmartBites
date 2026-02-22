@@ -1,23 +1,32 @@
 <div>
-    <h1>Welcome Customer {{ user?.name || 'User' }}!</h1>
-    <p>Your ID: {{ userId }}</p>
-  
-    <div style="margin-top: 20px;">
-      <input
-        type="text"
-        [(ngModel)]="query"
-        (keydown)="handleSearch($event)"
-        placeholder="Enter your query and press Enter"
-        style="padding: 10px; font-size: 16px; width: 300px; margin-right: 10px;"
-      />
-    </div>
-  
-    <p *ngIf="error" style="color: red;">{{ error }}</p>
-  
-    <ul *ngIf="results.length > 0" style="margin-top: 20px;">
-      <li *ngFor="let item of results" (click)="handleRestaurantClick(item)">
-        {{ item.restaurantName }}
-      </li>
-    </ul>
+  <h1>Welcome Customer {{ user?.name || 'User' }}!</h1>
+  <p>Your ID: {{ userId }}</p>
+  <button (click)="goToCart()">Cart</button>
+  <button (click)="goToOrders()">Orders</button>
+
+  <div style="margin-top: 20px;">
+    <input
+      type="text"
+      [(ngModel)]="query"
+      (keydown)="handleKeyDown($event)"
+      (ngModelChange)="handleSearch()"
+      placeholder="Search restaurants..."
+      name="query"
+      style="padding: 10px; font-size: 16px; width: 300px; margin-right: 10px;"
+    />
   </div>
-  
+
+  @if (error) {
+    <p style="color: red;">{{ error }}</p>
+  }
+
+  @if (results.length > 0) {
+    <ul style="margin-top: 20px;">
+      @for (item of results; track item.id) {
+        <li (click)="handleRestaurantClick(item)" style="cursor: pointer;">
+          {{ item.restaurantName }}
+        </li>
+      }
+    </ul>
+  }
+</div>

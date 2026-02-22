@@ -1,0 +1,12 @@
+@if (user) {
+  <div>
+    <h1>Welcome Seller {{ user.name }}!</h1>
+    <div style="display: flex; margin-bottom: 20px;">
+      <a [routerLink]="['/sellerHomeScreen', user.id, 'menu']" style="margin-right: 20px;">Menu</a>
+      <a [routerLink]="['/sellerHomeScreen', user.id, 'orders']" style="margin-right: 20px;">Orders</a>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+} @else {
+  <div>Loading...</div>
+}

@@ -1,9 +1,9 @@
 <div>
-  <h1>Customer Authentication</h1>
+  <h1>Delivery Agent Authentication</h1>
   @if (isLogin) {
-    <app-login userType="CUSTOMER"></app-login>
+    <app-login userType="DELIVERYAGENT"></app-login>
   } @else {
-    <app-sign-up userType="CUSTOMER"></app-sign-up>
+    <app-sign-up userType="DELIVERYAGENT"></app-sign-up>
   }
   <button (click)="toggleAuthMode()">
     {{ isLogin ? 'Switch to Signup' : 'Switch to Login' }}

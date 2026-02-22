@@ -1,0 +1,17 @@
+<div>
+  @if (restaurant) {
+    <h1>Restaurant menu for: {{ restaurant.restaurantName }}</h1>
+    @if (menus.length > 0) {
+      <ul>
+        @for (menu of menus; track menu.itemId) {
+          <li>
+            {{ menu.itemName }}
+            <button (click)="handleAddToCart(menu)">Add to Cart</button>
+          </li>
+        }
+      </ul>
+    }
+  } @else {
+    <p>No restaurant selected.</p>
+  }
+</div>

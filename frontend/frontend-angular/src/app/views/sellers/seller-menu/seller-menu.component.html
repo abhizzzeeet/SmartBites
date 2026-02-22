@@ -1,0 +1,64 @@
+<div>
+  <h2>Seller Menu</h2>
+  <p>Manage your menu items here.</p>
+  <button (click)="navigateToAddRestaurant()">Add Restaurant</button>
+
+  <div>
+    <select (change)="handleSelectRestaurant($event)" [value]="selectedRestaurant?.restaurantId?.toString() || ''">
+      <option value="" disabled>Select a restaurant</option>
+      @for (restaurant of restaurants; track restaurant.restaurantId) {
+        <option [value]="restaurant.restaurantId?.toString()">{{ restaurant.restaurantName }}</option>
+      }
+    </select>
+  </div>
+
+  @if (selectedRestaurant) {
+    <div>
+      <h3>Menu for {{ selectedRestaurant.restaurantName }}</h3>
+      @if (menuItems.length === 0) {
+        <p>No menu items found.</p>
+      } @else {
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Base Price</th>
+              <th>Quantity Type</th>
+              <th>Description</th>
+              <th>Availability</th>
+              <th>Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of menuItems; track item.itemId) {
+              <tr>
+                <td>{{ item.itemName }}</td>
+                <td>₹{{ item.basePrice }}</td>
+                <td>{{ item.quantityType }}</td>
+                <td>{{ item.description || 'N/A' }}</td>
+                <td>{{ item.availability ? 'Available' : 'Unavailable' }}</td>
+                <td>{{ item.category || 'N/A' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    </div>
+
+    <div>
+      <h3>Add New Menu Item</h3>
+      <form (ngSubmit)="handleAddMenuItem()">
+        <input type="text" name="itemName" placeholder="Item Name" [(ngModel)]="newMenuItem.itemName" required />
+        <input type="number" name="basePrice" placeholder="Base Price" [(ngModel)]="newMenuItem.basePrice" required />
+        <input type="text" name="quantityType" placeholder="Quantity Type" [(ngModel)]="newMenuItem.quantityType" required />
+        <textarea name="description" placeholder="Description" [(ngModel)]="newMenuItem.description"></textarea>
+        <select name="availability" [(ngModel)]="newMenuItem.availability">
+          <option [value]="true">Available</option>
+          <option [value]="false">Unavailable</option>
+        </select>
+        <input type="text" name="category" placeholder="Category" [(ngModel)]="newMenuItem.category" />
+        <button type="submit">Add Menu Item</button>
+      </form>
+    </div>
+  }
+</div>
