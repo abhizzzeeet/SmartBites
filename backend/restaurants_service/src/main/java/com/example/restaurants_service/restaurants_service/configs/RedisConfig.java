@@ -27,15 +27,15 @@ public class RedisConfig {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
 
-        // 🔹 Configure ObjectMapper to support LocalDateTime
+        // Configure ObjectMapper to support LocalDateTime
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule()); // Enables LocalDateTime serialization
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // Stores dates in ISO format
 
-        // 🔹 Use GenericJackson2JsonRedisSerializer with the custom ObjectMapper
+        // Use GenericJackson2JsonRedisSerializer with the custom ObjectMapper
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 
-        // 🔹 Set key and value serializers
+        // Set key and value serializers
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(serializer);
         template.setHashKeySerializer(new StringRedisSerializer());
