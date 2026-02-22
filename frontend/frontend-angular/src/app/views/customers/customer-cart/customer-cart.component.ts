@@ -34,6 +34,10 @@ export class CustomerCartComponent implements OnInit {
     this.cartService.removeFromCart(item.itemId, item.restaurantId);
   }
 
+  get total(): number {
+    return this.cart.reduce((sum, item) => sum + item.basePrice * item.quantity, 0);
+  }
+
   handlePlaceOrder(): void {
     const user = this.userService.getUser();
     if (!user) return;

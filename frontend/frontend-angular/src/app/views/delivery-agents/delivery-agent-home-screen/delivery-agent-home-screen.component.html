@@ -1,4 +1,12 @@
-<div>
-  <h1>Welcome DeliveryAgent {{ user?.name || 'User' }}!</h1>
-  <p>Your ID: {{ userId }}</p>
+<div class="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8 text-center">
+    <div class="inline-flex items-center justify-center w-20 h-20 bg-orange-100 rounded-full mb-4">
+      <span class="text-4xl">🚴</span>
+    </div>
+    <h1 class="text-2xl font-bold text-gray-800">Welcome, {{ user?.name || 'Agent' }}!</h1>
+    <p class="text-gray-400 text-sm mt-2">Agent ID: {{ userId }}</p>
+    <div class="mt-6 bg-orange-50 rounded-xl p-4">
+      <p class="text-orange-600 font-medium text-sm">You're online and ready to deliver 🎉</p>
+    </div>
+  </div>
 </div>

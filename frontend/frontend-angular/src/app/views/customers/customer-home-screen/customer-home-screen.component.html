@@ -1,32 +1,75 @@
-<div>
-  <h1>Welcome Customer {{ user?.name || 'User' }}!</h1>
-  <p>Your ID: {{ userId }}</p>
-  <button (click)="goToCart()">Cart</button>
-  <button (click)="goToOrders()">Orders</button>
+<div class="min-h-screen bg-gray-50">
 
-  <div style="margin-top: 20px;">
-    <input
-      type="text"
-      [(ngModel)]="query"
-      (keydown)="handleKeyDown($event)"
-      (ngModelChange)="handleSearch()"
-      placeholder="Search restaurants..."
-      name="query"
-      style="padding: 10px; font-size: 16px; width: 300px; margin-right: 10px;"
-    />
+  <!-- Navbar -->
+  <nav class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🍽️</span>
+        <span class="font-bold text-orange-500 text-lg">FoodDelivery</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-sm text-gray-600 hidden sm:block">Hi, <span class="font-semibold text-gray-800">{{ user?.name || 'User' }}</span></span>
+        <button (click)="goToOrders()" class="px-3 py-1.5 text-sm text-gray-600 hover:text-orange-500 font-medium transition-colors cursor-pointer">
+          📋 Orders
+        </button>
+        <button (click)="goToCart()" class="px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer">
+          🛒 Cart
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero / Search -->
+  <div class="bg-gradient-to-r from-orange-500 to-orange-400 py-10 px-4">
+    <div class="max-w-2xl mx-auto text-center">
+      <h1 class="text-3xl font-bold text-white mb-2">Hungry? We've got you covered.</h1>
+      <p class="text-orange-100 mb-6">Find your favourite restaurants nearby</p>
+      <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+        <input
+          type="text"
+          [(ngModel)]="query"
+          (keydown)="handleKeyDown($event)"
+          (ngModelChange)="handleSearch()"
+          placeholder="Search restaurants or cuisines..."
+          name="query"
+          class="w-full pl-11 pr-4 py-3 rounded-xl text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-white shadow-md"
+        />
+      </div>
+    </div>
   </div>
 
-  @if (error) {
-    <p style="color: red;">{{ error }}</p>
-  }
+  <!-- Results -->
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    @if (error) {
+      <p class="text-red-500 text-sm mb-4">{{ error }}</p>
+    }
 
-  @if (results.length > 0) {
-    <ul style="margin-top: 20px;">
-      @for (item of results; track item.id) {
-        <li (click)="handleRestaurantClick(item)" style="cursor: pointer;">
-          {{ item.restaurantName }}
-        </li>
-      }
-    </ul>
-  }
+    @if (results.length > 0) {
+      <h2 class="text-lg font-semibold text-gray-700 mb-4">{{ query ? 'Search Results' : 'All Restaurants' }}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (item of results; track item.id) {
+          <div
+            (click)="handleRestaurantClick(item)"
+            class="bg-white rounded-xl shadow-sm hover:shadow-md border border-gray-100 p-5 cursor-pointer transition-all hover:-translate-y-0.5"
+          >
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-xl">🏪</div>
+              <div>
+                <h3 class="font-semibold text-gray-800 text-sm">{{ item.restaurantName }}</h3>
+                <p class="text-xs text-gray-400">{{ item.city || 'Nearby' }}</p>
+              </div>
+            </div>
+            <span class="inline-block mt-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">Open</span>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-center py-16 text-gray-400">
+        <p class="text-4xl mb-3">🍴</p>
+        <p class="text-sm">No restaurants found. Try a different search.</p>
+      </div>
+    }
+  </div>
+
 </div>

@@ -1,11 +1,25 @@
-<div>
-  <h1>Seller Authentication</h1>
-  @if (isLogin) {
-    <app-login userType="SELLER"></app-login>
-  } @else {
-    <app-sign-up userType="SELLER"></app-sign-up>
-  }
-  <button (click)="toggleAuthMode()">
-    {{ isLogin ? 'Switch to Signup' : 'Switch to Login' }}
-  </button>
+<div class="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+        <span class="text-3xl">🏪</span>
+      </div>
+      <h1 class="text-2xl font-bold text-gray-800">Seller Portal</h1>
+      <p class="text-gray-500 text-sm mt-1">{{ isLogin ? 'Manage your restaurant.' : 'Register your restaurant.' }}</p>
+    </div>
+
+    @if (isLogin) {
+      <app-login userType="SELLER"></app-login>
+    } @else {
+      <app-sign-up userType="SELLER"></app-sign-up>
+    }
+
+    <div class="mt-6 text-center">
+      <button (click)="toggleAuthMode()" class="text-orange-500 hover:text-orange-600 font-medium text-sm transition-colors cursor-pointer">
+        {{ isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in' }}
+      </button>
+    </div>
+
+  </div>
 </div>
