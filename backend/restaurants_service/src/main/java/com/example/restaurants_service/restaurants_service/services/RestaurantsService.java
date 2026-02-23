@@ -63,29 +63,31 @@ public class RestaurantsService {
     // }
 
     public List<Restaurant> getAllRestaurants() {
+        String cacheKey = "allRestaurants";
+
+        // Try cache first — Redis is optional, fall back to DB if unavailable
         try {
-            String cacheKey = "allRestaurants";
-            
-            // Try fetching from Redis cache
-            List<Restaurant> restaurants = (List<Restaurant>) redisTemplate.opsForValue().get(cacheKey);
-            
-            if (restaurants == null) {
-                System.out.println("Fetching all restaurants from DB...");
-                
-                restaurants = restaurantsRepository.findAll();
-                System.out.println("Fetched from DB: " + restaurants);
-                
-                // Store result in Redis (even empty list to avoid unnecessary DB calls)
-                redisTemplate.opsForValue().set(cacheKey, restaurants, 10, TimeUnit.MINUTES);
-            } else {
-                System.out.println("Fetched from cache: " + restaurants);
+            List<Restaurant> cached = (List<Restaurant>) redisTemplate.opsForValue().get(cacheKey);
+            if (cached != null) {
+                System.out.println("Fetched from cache.");
+                return cached;
             }
-            
-            return restaurants;
         } catch (Exception e) {
-            System.out.println("Error fetching restaurants: " + e);
-            throw e;
+            System.out.println("Redis unavailable, falling back to DB: " + e.getMessage());
         }
+
+        // Fetch from DB
+        System.out.println("Fetching all restaurants from DB...");
+        List<Restaurant> restaurants = restaurantsRepository.findAll();
+
+        // Try to populate cache — skip silently if Redis is down
+        try {
+            redisTemplate.opsForValue().set(cacheKey, restaurants, 10, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            System.out.println("Redis unavailable, skipping cache write: " + e.getMessage());
+        }
+
+        return restaurants;
     }
 
     public List<Restaurant> getRestaurantsByUserId(Long userId) {

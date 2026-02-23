@@ -34,29 +34,31 @@ public class MenuService {
     }
 
     public List<Menu> getMenuByRestaurantId(Long restaurantId) {
+        String cacheKey = "restaurant" + restaurantId;
+
+        // Try cache first — Redis is optional, fall back to DB if unavailable
         try {
-            String cacheKey = "restaurant" + restaurantId;
-
-            List<Menu> menus = (List<Menu>) redisTemplate.opsForValue().get(cacheKey);
-            if (menus == null) {
-                System.out.println("Fetching menu from db");
-                menus = menuRepository.findByRestaurantId(restaurantId);
-                // if (menus.isEmpty()) {
-                // throw new RuntimeException("Menu not found with restaurant Id: " +
-                // restaurantId);
-                // }
-                // Store the result in Redis cache for 10 minutes
-                redisTemplate.opsForValue().set(cacheKey, menus, 10, TimeUnit.MINUTES);
-            } else {
-                System.out.println("Fetching menu from cache");
+            List<Menu> cached = (List<Menu>) redisTemplate.opsForValue().get(cacheKey);
+            if (cached != null) {
+                System.out.println("Fetching menu from cache.");
+                return cached;
             }
-
-            return menus;
         } catch (Exception e) {
-            System.out.println("Error in fetching menu: " + e);
-            throw e;
+            System.out.println("Redis unavailable, falling back to DB: " + e.getMessage());
         }
 
+        // Fetch from DB
+        System.out.println("Fetching menu from DB...");
+        List<Menu> menus = menuRepository.findByRestaurantId(restaurantId);
+
+        // Try to populate cache — skip silently if Redis is down
+        try {
+            redisTemplate.opsForValue().set(cacheKey, menus, 10, TimeUnit.MINUTES);
+        } catch (Exception e) {
+            System.out.println("Redis unavailable, skipping cache write: " + e.getMessage());
+        }
+
+        return menus;
     }
 
     public Menu updateMenu(Long id, Menu menu) {
