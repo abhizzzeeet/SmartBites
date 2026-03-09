@@ -1,13 +1,11 @@
-package com.example.fooddelivery.fooddelivery.configs;
+package com.example.orders_service.orders_service.configs;
 
-import com.example.fooddelivery.fooddelivery.filters.JwtAuthFilter;
+import com.example.orders_service.orders_service.filters.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -21,12 +19,7 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    // Configures stateless JWT security: disables sessions, permits public auth endpoints, secures everything else
+    // Enforces stateless JWT authentication on all order endpoints; CORS handled by WebConfig bean
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -34,13 +27,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/api/v1/auth/*/login",
-                    "/api/v1/auth/*/signup",
-                    "/api/v1/auth/refresh",
-                    "/api/v1/auth/logout",
-                    "/error"
-                ).permitAll()
+                .requestMatchers("/error").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form.disable())
